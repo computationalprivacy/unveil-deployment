@@ -63,9 +63,9 @@ These are the screenshots of the HTTP URLs accessed by the connected devices. Th
 The UNVEIL platform is designed to be modular and easily ex-
 tendable. It is structured into three main components:
 
-- Raspberry Pi(s): to collect data and perform the attack. [Code](https://github.com/shubhamjain0594/unveil-pi-data-collector).
-- Backend Server: responsible for managing the demonstration, components, data, and analyses in the experiment. It uses [Redis](https://redis.io/) and [MongoDB](https://www.mongodb.com/). [Code](https://github.com/shubhamjain0594/unveil-backend).
-- Visualization Server: for serving the web pages that visualize the results of data analyses and allow to control the demonstration. [Code](https://github.com/shubhamjain0594/unveil-frontend).
+- Raspberry Pi(s): to collect data and perform the attack. [Code](https://github.com/computationalprivacy/unveil-pi-data-collector).
+- Backend Server: responsible for managing the demonstration, components, data, and analyses in the experiment. It uses [Redis](https://redis.io/) and [MongoDB](https://www.mongodb.com/). [Code](https://github.com/computationalprivacy/unveil-backend).
+- Visualization Server: for serving the web pages that visualize the results of data analyses and allow to control the demonstration. [Code](https://github.com/computationalprivacy/unveil-frontend).
 
 ### External APIs used
 
@@ -79,7 +79,7 @@ We use certain external APIs for the platform to work correctly. You need to cre
 ### Requirements
 
 1. A server with [docker engine](https://docs.docker.com/engine/) and [docker-compose](https://docs.docker.com/compose/) installed to deploy frontend and backend services. This repository contains all the code needed for server deployments
-2. [Raspberry Pi(s)](https://www.raspberrypi.org/) with an external antenna (we use [Alfa Network AWUS036NHA](https://www.alfa.com.tw/products_detail/7.htm) for our internal testing). The [unveil-data-collector](https://github.com/shubhamjain0594/unveil-pi-data-collector) contains the code and details for deploying a raspberry pi with UNVEIL.
+2. [Raspberry Pi(s)](https://www.raspberrypi.org/) with an external antenna (we use [Alfa Network AWUS036NHA](https://www.alfa.com.tw/products_detail/7.htm) for our internal testing). The [unveil-data-collector](https://github.com/computationalprivacy/unveil-pi-data-collector) contains the code and details for deploying a raspberry pi with UNVEIL.
 
 **Note: You can run and test the platform even without raspberry pi. We provide fake data for the same purpose.**
 
@@ -128,7 +128,7 @@ sudo docker-compose -f unveil-deployment.yml up
 
 ### Deploy Raspberry Pi
 
-Instructions to setup the Raspberry Pi can be found in [this repository](https://github.com/shubhamjain0594/unveil-pi-data-collector).
+Instructions to setup the Raspberry Pi can be found in [this repository](https://github.com/computationalprivacy/unveil-pi-data-collector).
 
 After setting up the Pi, you will need to register the Pi in the database, located in folder `db/wifi.sqlite3`. This can be done by manually creating a record in the table `security_manager_accesstokens`. You have to add a name for the Pi and corresponding access token, which is to be added in the configuration of the Pi as well. You can use any SQLite DB editor for this purpose.
 
