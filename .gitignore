@@ -1,0 +1,6 @@
+configs/google_api_creds.json
+configs/production.py
+configs/runtimeConfig.js
+
+logs/
+db/

@@ -1,0 +1,48 @@
+version: '3.6'
+
+services:
+  mongodb:
+    image: mongo:latest@sha256:84f9f4f66809872d952cdc33946d72df6a02e1e8ee00529e5ccdea46dd08a84f
+    environment:
+      - MONGO_LOG_DIR=/dev/null
+      - MONGODB_DBNAME=wifi
+      - MONGO_INITDB_ROOT_USERNAME=wifi
+      - MONGO_INITDB_ROOT_PASSWORD=WiFiUnveIL
+    command: mongod --auth --smallfiles --logpath=/dev/null --quiet
+    ports:
+      - 127.0.0.1:27017:27017
+    volumes:
+      - ./db/mongodata:/data/db
+  redis:
+    image: redis:latest
+    ports:
+      - 127.0.0.1:6379:6379
+    command: redis-server --requirepass 12345678
+  backend:
+    image: cpgprojectunveil/backend-service:latest
+    depends_on: 
+      - redis
+      - mongodb
+    links: 
+      - redis
+      - mongodb
+    ports:
+      - 127.0.0.1:8000:8000
+    volumes:
+      - ./configs/production.py:/app/wifiservice/wifiservice/settings/production.py
+      - ./configs/google_api_creds.json:/app/wifiservice/google_api_creds.json
+      - ./logs:/var/log/django/
+      - ./db/wifi.sqlite3:/app/wifiservice/wifi.sqlite3
+  frontend:
+    image: cpgprojectunveil/frontend-service:latest
+    depends_on: 
+      - backend
+    links:
+      - backend
+    volumes:
+      - ./configs/runtimeConfig.js:/app/src/runtimeConfig.js
+    ports:
+      - 127.0.0.1:3000:3000
+    environment: 
+      - BROWSER=None
+      - CI=true
