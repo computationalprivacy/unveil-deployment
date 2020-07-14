@@ -22,7 +22,7 @@ UNVEIL provides a frontend interface to control the platform, accessible via a b
 
 `localhost:3000/control`
 
-UNVEIL experiment can be controlled via a control screen available at . You need to enter the PIN to access the screen. This is PIN has to be set in the backend during deployment, more details in [deployment section](#deployment).
+UNVEIL experiment can be controlled via a control screen available at above URL. You need to enter the PIN to access the screen. This is PIN has to be set in the backend during deployment, more details in [deployment section](#deployment).
 
 ![Control screen full](docs/imgs/control_full.png)
 
