@@ -18,11 +18,13 @@ UNVEIL provides a frontend interface to control the platform, accessible via a b
 
 ### Control screen
 
+![Control screen with PIN](docs/imgs/control_pin.png)
+
 `localhost:3000/control`
 
 UNVEIL experiment can be controlled via a control screen available at . You need to enter the PIN to access the screen. This is PIN has to be set in the backend during deployment, more details in [deployment section](#deployment).
 
-![Control screen with PIN](docs/imgs/control_pin.png)
+![Control screen full](docs/imgs/control_full.png)
 
 Once you enter the control screen you can see the buttons to:
 
@@ -33,9 +35,9 @@ Once you enter the control screen you can see the buttons to:
 
 You can also see fake data by clicking on `fake` option.
 
-![Control screen full](docs/imgs/control_full.png)
-
 ### [Setup screen](#setup-screen)
+
+![Setup screen](docs/imgs/setup.png)
 
 `localhost:3000/setup`
 
@@ -43,11 +45,15 @@ Setup screen shows how the wifi works for general public to understand and exper
 
 ### [Probe screen](#probe-screen)
 
+![Probe screen](docs/imgs/probe.png)
+
 `localhost:3000/probe`
 
 Probe screen shows the summary of the probe requests captured. More details are available in our [paper](https://dl.acm.org/doi/10.1145/3308558.3314143).
 
 ### [Devices screen](#devices-screen)
+
+![Data screen](docs/imgs/data1.png)
 
 `localhost:3000/data1`
 `localhost:3000/data2`
