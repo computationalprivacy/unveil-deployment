@@ -157,3 +157,26 @@ For support please raise issues in the repository and we will try to address the
 This project is being actively maintained by the [Computational Privacy Group](https://cpg.doc.ic.ac.uk/) at Imperial College London. Several students have played an active role in its development. We would like to acknowledge the contributors (in no particular order):
 
 [Alex Cummins](https://www.linkedin.com/in/alexcummins1/), [David Valaczkai](https://www.linkedin.com/in/david-valaczkai/), [Eden Bensaid](https://edenbd.dev/), [Jonathan Longman](https://www.linkedin.com/in/jonathan-longman-6480a419a/), [Matyas Horkay](https://www.linkedin.com/in/matyas-horkay-453b16178/), [Raghav Khanna](https://www.linkedin.com/in/raghavkhanna18/), [Shubham Jain](https://cpg.doc.ic.ac.uk/team/shubham/), [Vishwam Garg](https://www.linkedin.com/in/vishwamgarg/), and [Yves-Alexandre de Montjoye](http://demontjoye.com/).
+
+# Citing
+
+If you use our work, please cite us:
+
+```bibtex
+@inproceedings{10.1145/3308558.3314143,
+author = {Jain, Shubham and Bensaid, Eden and de Montjoye, Yves-Alexandre},
+title = {UNVEIL: Capture and Visualise WiFi Data Leakages},
+year = {2019},
+isbn = {9781450366748},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3308558.3314143},
+doi = {10.1145/3308558.3314143},
+booktitle = {The World Wide Web Conference},
+pages = {3550–3554},
+numpages = {5},
+keywords = {WiFi Security, Visualisation, Smartphones, Public Demonstration},
+location = {San Francisco, CA, USA},
+series = {WWW '19}
+}
+```
