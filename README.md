@@ -10,7 +10,7 @@ The platform currently performs two attacks. First, it captures probe requests s
 
 The work was published as a [demo paper](https://dl.acm.org/doi/10.1145/3308558.3314143) in [The Web Conference 2019 (WWW '19)](https://www2019.thewebconf.org/).
 
-This repository has the code for deployment of [UNVEIL](https://dl.acm.org/doi/10.1145/3308558.3314143) on any platform with docker.
+This repository began as the code for deployment of [UNVEIL](https://dl.acm.org/doi/10.1145/3308558.3314143) on any platform with docker. Now, this also contains newer updates made to the platform, including mobile support.
 
 ## Usage instructions
 
@@ -33,7 +33,15 @@ Once you enter the control screen you can see the buttons to:
 - show data on [probe screen](#probe-screen)
 - show data on [devices screen](#devices-screen)
 
-You can also see fake data by clicking on `fake` option.
+![Control screen with data collection started](docs/imgs/control_started.png)
+
+Once the demo is started, we can see the button change.
+
+![Control screen with data collection started](docs/imgs/control_show_device.png)
+
+Once there is some device connected to the access point, you can select the position on which you want the data to be displayed and can further toggle the data to be shown. It is important note that data is analyzed and shown in real time. This will be visible on `data/{position}`.
+
+You can also see fake data by clicking on `fake` option and this will be visible on `data/0`.
 
 ### [Setup screen](#setup-screen)
 
@@ -53,12 +61,11 @@ Probe screen shows the summary of the probe requests captured. More details are 
 
 ### [Devices screen](#devices-screen)
 
-![Data screen](docs/imgs/data1.png)
+![Data screen](docs/imgs/device.png)
 
-`localhost:3000/data1`
-`localhost:3000/data2`
+`localhost:3000/data/{0-5}`
 
-These show the data from the devices that was captured when they were connected to our access point. More details in our [paper](https://dl.acm.org/doi/10.1145/3308558.3314143).
+These show the data from the devices that was captured when they were connected to our access point. More details in our [paper](https://dl.acm.org/doi/10.1145/3308558.3314143). Additionally, we also now provide details on trackers which can be enabled through the control screen and shown in red.
 
 `localhost:3000/screenshots`
 
@@ -66,12 +73,13 @@ These are the screenshots of the HTTP URLs accessed by the connected devices. Th
 
 ## System architecture
 
-The UNVEIL platform is designed to be modular and easily ex-
-tendable. It is structured into three main components:
+![Architecture diagram](docs/imgs/architecture_diagram_new.png)
 
-- Raspberry Pi(s): to collect data and perform the attack. [Code](https://github.com/computationalprivacy/unveil-pi-data-collector).
-- Backend Server: responsible for managing the demonstration, components, data, and analyses in the experiment. It uses [Redis](https://redis.io/) and [MongoDB](https://www.mongodb.com/). [Code](https://github.com/computationalprivacy/unveil-backend).
-- Visualization Server: for serving the web pages that visualize the results of data analyses and allow to control the demonstration. [Code](https://github.com/computationalprivacy/unveil-frontend).
+The UNVEIL platform is designed to be modular and easily extendable. It is structured into three main components:
+
+- Raspberry Pi(s): to collect data and perform the attack. [Code](https://github.com/computationalprivacy/unveil-pi-data-collector). We use [opennds](https://github.com/openNDS/openNDS) as a captive portal to collect consent before any data collection happens.
+- Backend Server: responsible for managing the demonstration, components, data, and analyses in the experiment. It uses [Redis](https://redis.io/), [MongoDB](https://www.mongodb.com/), [PostgreSQL](https://www.postgresql.org/) and [Django](https://www.djangoproject.com/) in the backend. [EasyList](https://easylist.to/) is used to identify the trackers. [Code](https://github.com/computationalprivacy/unveil-backend).
+- Visualization Server: for serving the web pages that visualize the results of data analyses and allow to control the demonstration. Built using [React](https://reactjs.org/) framework. [Code](https://github.com/computationalprivacy/unveil-frontend).
 
 ### External APIs used
 
@@ -118,12 +126,12 @@ Make changes to the configuration files as required.
 #### Deploy docker
 
 ```shell
-# pull the images
-sudo docker-compose -f unveil-deployment.yml pull
+# build the images
+sudo docker-compose -f unveil-deployment.yml build
 
 # create db folder
 mkdir db
-touch db/wifi.sqlite3
+mkdir db/mongodata
 
 # create folder for logs
 mkdir logs
@@ -136,10 +144,16 @@ sudo docker-compose -f unveil-deployment.yml up
 
 Instructions to setup the Raspberry Pi can be found in [this repository](https://github.com/computationalprivacy/unveil-pi-data-collector).
 
-After setting up the Pi, you will need to register the Pi in the database, located in folder `db/wifi.sqlite3`. This can be done by manually creating a record in the table `security_manager_accesstokens`. You have to add a name for the Pi and corresponding access token, which is to be added in the configuration of the Pi as well. You can use any SQLite DB editor for this purpose.
+After setting up the Pi, you will need to register the Pi in the postgres database. This can be done by manually creating a record in the table `security_manager_accesstokens`. You have to add a name for the Pi and corresponding access token, which is to be added in the configuration of the Pi as well. You can use any SQLite DB editor for this purpose.
 
 Multiple raspberry pis can be dployed with UNVEIL.
 
 ## Contact
 
 For support please raise issues in the repository and we will try to address them at earliest.
+
+# Contributors
+
+This project is being actively maintained by the [Computational Privacy Group](https://cpg.doc.ic.ac.uk/) at Imperial College London. Several students have played an active role in its development. We would like to acknowledge the contributors (in no particular order):
+
+[Alex Cummins](https://www.linkedin.com/in/alexcummins1/), [David Valaczkai](https://www.linkedin.com/in/david-valaczkai/), [Eden Bensaid](https://edenbd.dev/), [Jonathan Longman](https://www.linkedin.com/in/jonathan-longman-6480a419a/), [Matyas Horkay](https://www.linkedin.com/in/matyas-horkay-453b16178/), [Raghav Khanna](https://www.linkedin.com/in/raghavkhanna18/), [Shubham Jain](https://cpg.doc.ic.ac.uk/team/shubham/), [Vishwam Garg](https://www.linkedin.com/in/vishwamgarg/), and [Yves-Alexandre de Montjoye](http://demontjoye.com/).

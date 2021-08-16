@@ -49,26 +49,31 @@ class DEMO_SECURITY:
 class DEMO_CONSTANTS:
     demo_time = 120 * 60  # session active time in seconds
     active_pi_threshold = 30  # Fetch Pi with status in recent X seconds
-    session_time = 5400  # session time for data collection in seconds
     probe_time = 600  # Probe request gathering time in seconds.
     use_hashing = True
     salt = 'ba2f3d2e7f8e55b987cd30f640a97374adecb9ebe50bde6c' # salt for hashing MAC addresses
 
 
-# Change the password as per Docker compose file.
 RQ_QUEUES = {
-    'data': {
-        'HOST': 'redis',
-        'PORT': 6379,
-        'DB': 0,
-        'PASSWORD': '12345678',
-        'DEFAULT_TIMEOUT': 36000,
+    "data": {
+        "HOST": "redis",
+        "PORT": 6379,
+        "DB": 0,
+        "PASSWORD": "12345678",
+        "DEFAULT_TIMEOUT": 36000,
     },
-    'instructions': {
-        'HOST': 'redis',
-        'PORT': 6379,
-        'DB': 0,
-        'PASSWORD': '12345678',
-        'DEFAULT_TIMEOUT': 36000,
-    }
+    "instructions": {
+        "HOST": "redis",
+        "PORT": 6379,
+        "DB": 0,
+        "PASSWORD": "12345678",
+        "DEFAULT_TIMEOUT": 36000,
+    },
+    "screenshots": {
+        "HOST": "redis",
+        "PORT": 6379,
+        "DB": 0,
+        "PASSWORD": "12345678",
+        "DEFAULT_TIMEOUT": 36000,
+    },
 }

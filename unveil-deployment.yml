@@ -16,33 +16,50 @@ services:
   redis:
     image: redis:latest
     ports:
-      - 127.0.0.1:6379:6379
+      - 6379:6379
+    expose:
+      - 6379
     command: redis-server --requirepass 12345678
-  backend:
-    image: cpgprojectunveil/backend-service:latest
-    depends_on: 
-      - redis
-      - mongodb
-    links: 
-      - redis
-      - mongodb
+  postgres:
+    image: postgres
     ports:
-      - 127.0.0.1:8000:8000
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=wifi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  backend:
+    build:
+      context:
+        ./unveil-backend/
+      dockerfile:
+        ./docker/Dockerfile
+    depends_on:
+      - redis
+      - mongodb
+      - postgres
+    links:
+      - redis
+      - mongodb
+      - postgres
+    ports:
+      - 8000:8000
+    expose:
+      - "8000"
     volumes:
       - ./configs/production.py:/app/wifiservice/wifiservice/settings/production.py
       - ./configs/google_api_creds.json:/app/wifiservice/google_api_creds.json
       - ./logs:/var/log/django/
-      - ./db/wifi.sqlite3:/app/wifiservice/wifi.sqlite3
   frontend:
-    image: cpgprojectunveil/frontend-service:latest
-    depends_on: 
-      - backend
-    links:
-      - backend
+    build: 
+      dockerfile: docker/Dockerfile
+      context: ./unveil-frontend/
+    image: frontend:latest
     volumes:
       - ./configs/runtimeConfig.js:/app/src/runtimeConfig.js
     ports:
-      - 127.0.0.1:3000:3000
+      - 3000:3000
     environment: 
       - BROWSER=None
       - CI=true
+    command: npm start

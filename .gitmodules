@@ -1,0 +1,6 @@
+[submodule "unveil-frontend"]
+	path = unveil-frontend
+	url = https://github.com/computationalprivacy/unveil-frontend.git
+[submodule "unveil-backend"]
+	path = unveil-backend
+	url = https://github.com/computationalprivacy/unveil-backend.git
