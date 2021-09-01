@@ -50,6 +50,10 @@ services:
       - ./configs/production.py:/app/wifiservice/wifiservice/settings/production.py
       - ./configs/google_api_creds.json:/app/wifiservice/google_api_creds.json
       - ./logs:/var/log/django/
+    environment:
+      - POSTGRES_DB=wifi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   frontend:
     build: 
       dockerfile: docker/Dockerfile

@@ -12,7 +12,7 @@ The work was published as a [demo paper](https://dl.acm.org/doi/10.1145/3308558.
 
 This repository began as the code for deployment of [UNVEIL](https://dl.acm.org/doi/10.1145/3308558.3314143) on any platform with docker. Now, this also contains newer updates made to the platform, including mobile support.
 
-## Usage instructions
+## Frontend usage instructions
 
 UNVEIL provides a frontend interface to control the platform, accessible via a browser (has been tested with Chrome and Firefox).
 
@@ -144,7 +144,21 @@ sudo docker-compose -f unveil-deployment.yml up
 
 Instructions to setup the Raspberry Pi can be found in [this repository](https://github.com/computationalprivacy/unveil-pi-data-collector).
 
-After setting up the Pi, you will need to register the Pi in the postgres database. This can be done by manually creating a record in the table `security_manager_accesstokens`. You have to add a name for the Pi and corresponding access token, which is to be added in the configuration of the Pi as well. You can use any SQLite DB editor for this purpose.
+After setting up the Pi, you will need to register the Pi in the postgres database. This can be done by manually creating a record in the table `security_manager_accesstokens`. You have to add a name for the Pi and corresponding access token, which is to be added in the configuration of the Pi as well.
+
+To register the Pi you can use the following command to open SQL command line interface (when the backend server is up and running):
+
+```bash
+sudo docker-compose -f unveil-deployment.yml exec postgres psql -U postgres -d wifi # open sql commandline interface
+```
+
+And then use the following command to add a autherisation token and pi name:
+
+```sql
+INSERT into security_manager_accesstokens (service,token) VALUES ('<pi_name>', '<auth_token>');
+```
+
+Remember to add this authentication token to the [pi-data-collector](https://github.com/computationalprivacy/unveil-pi-data-collector)'s config file.
 
 Multiple raspberry pis can be dployed with UNVEIL.
 
@@ -164,19 +178,19 @@ If you use our work, please cite us:
 
 ```bibtex
 @inproceedings{10.1145/3308558.3314143,
-author = {Jain, Shubham and Bensaid, Eden and de Montjoye, Yves-Alexandre},
-title = {UNVEIL: Capture and Visualise WiFi Data Leakages},
-year = {2019},
-isbn = {9781450366748},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3308558.3314143},
-doi = {10.1145/3308558.3314143},
-booktitle = {The World Wide Web Conference},
-pages = {3550–3554},
-numpages = {5},
-keywords = {WiFi Security, Visualisation, Smartphones, Public Demonstration},
-location = {San Francisco, CA, USA},
-series = {WWW '19}
+    author = {Jain, Shubham and Bensaid, Eden and de Montjoye, Yves-Alexandre},
+    title = {UNVEIL: Capture and Visualise WiFi Data Leakages},
+    year = {2019},
+    isbn = {9781450366748},
+    publisher = {Association for Computing Machinery},
+    address = {New York, NY, USA},
+    url = {https://doi.org/10.1145/3308558.3314143},
+    doi = {10.1145/3308558.3314143},
+    booktitle = {The World Wide Web Conference},
+    pages = {3550–3554},
+    numpages = {5},
+    keywords = {WiFi Security, Visualisation, Smartphones, Public Demonstration},
+    location = {San Francisco, CA, USA},
+    series = {WWW '19}
 }
 ```
