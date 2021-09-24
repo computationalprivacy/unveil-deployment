@@ -118,7 +118,7 @@ Before deploying:
 ```shell
 cp ./configs/change_me.google_api_creds.json ./configs/google_api_creds.json
 cp ./configs/change_me.production.py ./configs/production.py
-cp ./configs/change_me.runtimeConfig.py ./configs/runtimeConfig.py
+cp ./configs/change_me.runtimeConfig.js ./configs/runtimeConfig.js
 ```
 
 Make changes to the configuration files as required.
